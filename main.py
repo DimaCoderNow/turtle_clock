@@ -2,13 +2,15 @@ import time
 import turtle
 
 # Список сегментов для цифр
-segments_list = [((6, 200), (28, 180), (106, 180), (128, 200)),
-                 ((112, 175), (112, 118), (126, 105), (133, 112), (133, 194)),
-                 ((125, 95), (133, 87), (133, 6), (112, 25), (112, 82)),
-                 ((120, 100), (109, 90), (26, 90), (15, 100), (26, 110), (109, 110)),
-                 ((2, 194), (23, 175), (23, 118), (9, 105), (2, 112)),
-                 ((9, 95), (23, 82), (23, 25), (2, 6), (2, 87)),
-                 ((6, 0), (28, 20), (106, 20), (128, 0)), ]
+segments_list = [
+    ((6, 200), (28, 180), (106, 180), (128, 200)),
+    ((112, 175), (112, 118), (126, 105), (133, 112), (133, 196)),
+    ((125, 95), (133, 87), (133, 4), (112, 25), (112, 82)),
+    ((120, 100), (109, 90), (26, 90), (15, 100), (26, 110), (109, 110)),
+    ((2, 194), (23, 175), (23, 118), (9, 105), (2, 112)),
+    ((9, 95), (23, 82), (23, 25), (2, 6), (2, 87)),
+    ((6, 0), (28, 20), (106, 20), (128, 0)),
+]
 # Словарь содержащий индексы сегментов для создания цифры
 digits_dict = {
     0: (0, 1, 2, 4, 5, 6),
@@ -52,20 +54,18 @@ for i, coordinate in enumerate([(-340, 0), (-170, 0), (30, 0), (200, 0)]):
     clock_face[i].up()
     clock_face[i].setposition(coordinate)
     clock_face[i].showturtle()
-
-time.sleep(2)
-# Пока для теста вывода
-for i in name_shape:
-    clock_face[2].shape(i)
-    clock_face[0].shape(i)
-    for j in range(10):
-        clock_face[3].shape(name_shape[j])
-        if j % 2:
-            turtle.shape(dot[1])
-        else:
-            turtle.shape(dot[0])
-            clock_face[1].shape(name_shape[j])
-        time.sleep(1)
-
-
-turtle.mainloop()
+time.sleep(1)
+# Вывод времени
+while True:
+    turtle.shape(dot[0])
+    time.sleep(1)
+    minute_1 = time.localtime()[4] // 10
+    minute_2 = time.localtime()[4] % 10
+    clock_face[2].shape(name_shape[minute_1])
+    clock_face[3].shape(name_shape[minute_2])
+    hour_1 = time.localtime()[3] // 10
+    hour_2 = time.localtime()[3] % 10
+    clock_face[0].shape(name_shape[hour_1])
+    clock_face[1].shape(name_shape[hour_2])
+    turtle.shape(dot[1])
+    time.sleep(1)
