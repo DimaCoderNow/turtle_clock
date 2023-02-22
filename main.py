@@ -23,6 +23,7 @@ digits_dict = {
     9: (0, 1, 2, 3, 4, 6),
 }
 turtle.mode("logo")
+turtle.up()
 turtle.bgcolor("#2B2B2B")
 name_shape = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 # создаем цифры из сегментов
@@ -43,28 +44,26 @@ for i, color in enumerate(["#0B2B0B", "#17F568"]):
     dot_shape.addcomponent(poly_1, color)
     dot_shape.addcomponent(poly_2, color)
     turtle.register_shape(dot[i], dot_shape)
-# dote = turtle.Turtle(shape="dote_active")
 # Создаем экземпляры черепашки для каждой из цифр на часах
-second_digit = turtle.Turtle(shape="zero")
-second_digit.up()
-second_digit.hideturtle()
-second_digit.setposition(-160, 0)
-second_digit.showturtle()
+clock_face = []
+for i, coordinate in enumerate([(-170, 0), (-340, 0), (30, 0), (200, 0)]):
+    clock_face.append(turtle.Turtle(shape="zero"))
+    clock_face[i].up()
+    clock_face[i].hideturtle()
+    clock_face[i].setposition(coordinate)
+    clock_face[i].showturtle()
 
-first_digit = turtle.Turtle(shape="zero")
-first_digit.up()
-first_digit.hideturtle()
-first_digit.setposition(-160, 0)
-first_digit.showturtle()
-
+# Пока для теста вывода
 for i in name_shape:
-    second_digit.shape(i)
+    clock_face[2].shape(i)
+    clock_face[0].shape(i)
     for j in range(10):
+        clock_face[3].shape(name_shape[j])
         if j % 2:
             turtle.shape(dot[1])
         else:
             turtle.shape(dot[0])
-
+            clock_face[1].shape(name_shape[j])
         time.sleep(1)
 
 
