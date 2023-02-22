@@ -1,7 +1,6 @@
 import time
 import turtle
 
-
 # Список сегментов для цифр
 segments_list = [((6, 200), (28, 180), (106, 180), (128, 200)),
                  ((112, 175), (112, 118), (126, 105), (133, 112), (133, 194)),
@@ -12,30 +11,60 @@ segments_list = [((6, 200), (28, 180), (106, 180), (128, 200)),
                  ((6, 0), (28, 20), (106, 20), (128, 0)), ]
 # Словарь содержащий индексы сегментов для создания цифры
 digits_dict = {
-                0: (0, 1, 2, 4, 5, 6),
-                1: (1, 2),
-                2: (0, 1, 3, 5, 6),
-                3: (0, 1, 2, 3, 6),
-                4: ( 1, 2, 3, 4),
-                5: (0, 2, 3, 4, 6),
-                6: (0, 2, 3, 4, 5, 6),
-                7: (0, 1, 2, 4),
-                8: (0, 1, 2, 3, 4, 5, 6),
-                9: (0, 1, 2, 3, 4, 6),
+    0: (0, 1, 2, 4, 5, 6),
+    1: (1, 2),
+    2: (0, 1, 3, 5, 6),
+    3: (0, 1, 2, 3, 6),
+    4: (1, 2, 3, 4),
+    5: (0, 2, 3, 4, 6),
+    6: (0, 2, 3, 4, 5, 6),
+    7: (0, 1, 2, 4),
+    8: (0, 1, 2, 3, 4, 5, 6),
+    9: (0, 1, 2, 3, 4, 6),
 }
 turtle.mode("logo")
+turtle.bgcolor("#2B2B2B")
 name_shape = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+# создаем цифры из сегментов
 for i in range(10):
     shape = turtle.Shape("compound")
     for j, segment in enumerate(segments_list):
         if j in digits_dict[i]:
             shape.addcomponent(segment, "#17F568", "green")
+        else:
+            shape.addcomponent(segment, "#0B2B0B")
     turtle.register_shape(name_shape[i], shape)
+# Создаем точки для секунд
+dot = ["none_dot", "dot"]
+for i, color in enumerate(["#0B2B0B", "#17F568"]):
+    dot_shape = turtle.Shape("compound")
+    poly_1 = ((-10, 150), (10, 150), (10, 130), (-10, 130))
+    poly_2 = ((-10, 50), (10, 50), (10, 70), (-10, 70))
+    dot_shape.addcomponent(poly_1, color)
+    dot_shape.addcomponent(poly_2, color)
+    turtle.register_shape(dot[i], dot_shape)
+# dote = turtle.Turtle(shape="dote_active")
+# Создаем экземпляры черепашки для каждой из цифр на часах
+second_digit = turtle.Turtle(shape="zero")
+second_digit.up()
+second_digit.hideturtle()
+second_digit.setposition(-160, 0)
+second_digit.showturtle()
 
+first_digit = turtle.Turtle(shape="zero")
+first_digit.up()
+first_digit.hideturtle()
+first_digit.setposition(-160, 0)
+first_digit.showturtle()
 
-for _ in range(100):
-    for i in name_shape:
-        turtle.shape(i)
+for i in name_shape:
+    second_digit.shape(i)
+    for j in range(10):
+        if j % 2:
+            turtle.shape(dot[1])
+        else:
+            turtle.shape(dot[0])
+
         time.sleep(1)
 
 
